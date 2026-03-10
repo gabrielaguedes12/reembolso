@@ -5,7 +5,7 @@ import com.saude.reembolso.model.Consulta;
 
 public class AuditoriaSpy implements Auditoria {
 
-    public boolean chamado = false;
+    public boolean chamado = fals;
 
     public void registrarConsulta(Consulta consulta) {
         chamado = true;
