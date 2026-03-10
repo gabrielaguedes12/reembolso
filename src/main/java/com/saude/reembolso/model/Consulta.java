@@ -11,4 +11,5 @@ public class Consulta {
     public double getValor() {
         return valor;
     }
+
 }

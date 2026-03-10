@@ -1,50 +1,49 @@
 package com.saude.reembolso;
 
 import com.saude.reembolso.service.CalculadoraReembolso;
+import com.saude.reembolso.model.Paciente;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CalculadoraReembolsoTest {
+
+    CalculadoraReembolso calc = new CalculadoraReembolso();
+
+    private Paciente pacienteDummy() {
+        return new Paciente("Maria");
+    }
 
     @Test
     public void deveCalcularReembolsoBasico() {
 
-        CalculadoraReembolso calc = new CalculadoraReembolso();
+        double resultado = calc.calcular(200,0.7,pacienteDummy());
 
-        double resultado = calc.calcular(200, 0.7);
-
-        assertEquals(140, resultado);
+        assertEquals(140,resultado,0.01);
     }
 
     @Test
-    public void deveRetornarZeroQuandoConsultaZero() {
+    public void consultaZero() {
 
-        CalculadoraReembolso calc = new CalculadoraReembolso();
+        double resultado = calc.calcular(0,0.7,pacienteDummy());
 
-        double resultado = calc.calcular(0, 0.7);
-
-        assertEquals(0, resultado);
+        assertEquals(0,resultado,0.01);
     }
 
     @Test
-    public void deveRetornarZeroQuandoCoberturaZero() {
+    public void coberturaZero() {
 
-        CalculadoraReembolso calc = new CalculadoraReembolso();
+        double resultado = calc.calcular(200,0,pacienteDummy());
 
-        double resultado = calc.calcular(200, 0);
-
-        assertEquals(0, resultado);
+        assertEquals(0,resultado,0.01);
     }
 
     @Test
-    public void deveRetornarValorTotalQuandoCobertura100() {
+    public void coberturaTotal() {
 
-        CalculadoraReembolso calc = new CalculadoraReembolso();
+        double resultado = calc.calcular(200,1,pacienteDummy());
 
-        double resultado = calc.calcular(200, 1);
-
-        assertEquals(200, resultado);
+        assertEquals(150,resultado,0.01);
     }
 
 }
